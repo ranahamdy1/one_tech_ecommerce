@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class FrontendController extends Controller
 {
@@ -32,5 +34,29 @@ class FrontendController extends Controller
         }else{
             return redirect()->route('home');
         }
+    }
+
+    public function newAccount(Request $request)
+    {
+            if ($request->isMethod('post')) {
+                $check = User::where('email', '=', $request->email)->first();
+                if(isset($check)){
+                    return response()->json(['data'=>0]);
+                }else{
+                    $user = new User();
+                    $user->name = strip_tags($request->name);
+                    $user->email = strip_tags($request->email);
+                    $user->password = Hash::make($request->password);
+                    $user->created_at = Carbon::now();
+                    $user->save();
+
+                    $user->assignRole('user');
+                    Auth::login($user);
+
+                    return response()->json(['data'=>1]);
+                }
+            }else{
+                return redirect()->route('home');
+            }
     }
 }

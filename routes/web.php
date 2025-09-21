@@ -8,14 +8,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(FrontendController::class)->group(function () {
     Route::get('/', 'home')->name('home');
-    Route::any('/user/login', 'userLogin');
+    Route::post('/user/login', 'userLogin')->name('user.login');
+    Route::post('/newAccount', 'newAccount')->name('user.register');
 });
 
 Route::controller(BackendController::class)->group(function () {
     Route::middleware(['auth', 'verified','role:admin'])->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
-        Route::get('/userLogOut', 'userLogOut')->name('userLogOut');
     });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/userLogOut', [BackendController::class,'userLogOut'])->name('userLogOut');
 });
 
 //Route::get('/dashboard', function () {
