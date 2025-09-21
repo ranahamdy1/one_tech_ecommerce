@@ -1,52 +1,63 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('auth.master')
+@section('title','register')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+@section('content')
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-md-100v">
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <div class="login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-40 bg-white">
+            <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">starlight <span class="tx-info tx-normal">admin</span></div>
+            <div class="tx-center mg-b-60">Professional Admin Template Design</div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter your username">
+            </div><!-- form-group -->
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Enter your password">
+            </div><!-- form-group -->
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Enter your fullname">
+            </div><!-- form-group -->
+            <div class="form-group">
+                <label class="d-block tx-11 tx-uppercase tx-medium tx-spacing-1">Birthday</label>
+                <div class="row row-xs">
+                    <div class="col-sm-4">
+                        <select class="form-control select2" data-placeholder="Month">
+                            <option label="Month"></option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                        </select>
+                    </div><!-- col-4 -->
+                    <div class="col-sm-4 mg-t-20 mg-sm-t-0">
+                        <select class="form-control select2" data-placeholder="Day">
+                            <option label="Day"></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div><!-- col-4 -->
+                    <div class="col-sm-4 mg-t-20 mg-sm-t-0">
+                        <select class="form-control select2" data-placeholder="Year">
+                            <option label="Year"></option>
+                            <option value="1">2010</option>
+                            <option value="2">2011</option>
+                            <option value="3">2012</option>
+                            <option value="4">2013</option>
+                            <option value="5">2014</option>
+                        </select>
+                    </div><!-- col-4 -->
+                </div><!-- row -->
+            </div><!-- form-group -->
+            <div class="form-group tx-12">By clicking the Sign Up button below, you agreed to our privacy policy and terms of use of our website.</div>
+            <button type="submit" class="btn btn-info btn-block">Sign Up</button>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <div class="mg-t-40 tx-center">Already have an account? <a href="{{route('login')}}" class="tx-info">Sign In</a></div>
+        </div><!-- login-wrapper -->
+    </div><!-- d-flex -->
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+@endsection
