@@ -12,7 +12,7 @@ class BackendController extends Controller
     {
         return view('backend.index');
     }
-    public function userLogOut()
+    public function adminLogOut()
     {
         Auth::logout();
         Session::flush();

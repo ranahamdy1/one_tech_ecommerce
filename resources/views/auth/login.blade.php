@@ -14,7 +14,7 @@
             </div><!-- form-group -->
             <div class="form-group">
                 <input type="password" id="password"  class="form-control" placeholder="Enter your password">
-                <a href="" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
+                <a href="{{asset('userForgetPassword')}}" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
             </div><!-- form-group -->
             <button type="submit" class="btn btn-info btn-block loginBtn">Sign In</button>
 
