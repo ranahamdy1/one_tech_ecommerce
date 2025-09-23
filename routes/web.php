@@ -32,6 +32,7 @@ Route::controller(BackendController::class)->group(function () {
         Route::get('/adminLogOut', 'adminLogOut')->name('adminLogOut');
         Route::get('/addCategory', 'addCategory')->name('addCategory');
         Route::post('/addCategoryStore', 'addCategoryStore')->name('addCategoryStore');
+        Route::get('/category', 'category')->name('category');
     });
 });
 

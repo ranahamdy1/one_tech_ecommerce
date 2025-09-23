@@ -48,4 +48,10 @@ class BackendController extends Controller
             return redirect()->route('home');
         }
     }
+
+    public function category()
+    {
+        $data = Category::latest()->paginate(10);
+        return view('backend.category.index',compact('data'));
+    }
 }
