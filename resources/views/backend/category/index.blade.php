@@ -35,7 +35,7 @@
                                 <td>{{$val->name}}</td>
                                 <td>{{$val->order}}</td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-block mg-b-10">Edit</a>
+                                    <a href="{{route('editCategory',['id'=>$val->id])}}" class="btn btn-primary btn-block mg-b-10">Edit</a>
                                     <a href="" class="btn btn-danger btn-block mg-b-10">Delete</a>
                                 </td>
                             </tr>

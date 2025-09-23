@@ -54,4 +54,19 @@ class BackendController extends Controller
         $data = Category::latest()->paginate(10);
         return view('backend.category.index',compact('data'));
     }
+
+    public function editCategory($id)
+    {
+        $data = Category::findOrFail($id);
+        return view('backend.category.edit',compact('data'));
+    }
+
+    public function updateCategory(Request $request)
+    {
+        $data = Category::where('id','=',$request->id)->update([
+            'name'=>strip_tags($request->name),
+            'order'=>strip_tags($request->order)
+        ]);
+        return response()->json(['data'=>$data]);
+    }
 }

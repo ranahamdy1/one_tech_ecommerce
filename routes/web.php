@@ -28,11 +28,17 @@ Route::controller(FrontendController::class)->group(function () {
 
 Route::controller(BackendController::class)->group(function () {
     Route::middleware(['auth', 'verified','role:admin'])->group(function () {
+
         Route::get('/dashboard', 'dashboard')->name('dashboard');
         Route::get('/adminLogOut', 'adminLogOut')->name('adminLogOut');
+
         Route::get('/addCategory', 'addCategory')->name('addCategory');
-        Route::post('/addCategoryStore', 'addCategoryStore')->name('addCategoryStore');
+        Route::post('/addCategoryStore', 'addCategoryStore');
+
         Route::get('/category', 'category')->name('category');
+
+        Route::get('/editCategory/{id}', 'editCategory')->name('editCategory');
+        Route::any('/updateCategory', 'updateCategory');
     });
 });
 
