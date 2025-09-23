@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -58,22 +59,50 @@
 @yield('content')
 <!-- ########## END: MAIN PANEL ########## -->
 
-<script src="{{asset("/backend/lib/jquery/jquery.js")}}"></script>
-<script src="{{asset("/backend/lib/popper.js/popper.js")}}"></script>
-<script src="{{asset("/backend/lib/bootstrap/bootstrap.js")}}"></script>
-<script src="{{asset("/backend/lib/jquery-ui/jquery-ui.js")}}"></script>
-<script src="{{asset("/backend/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js")}}"></script>
-<script src="{{asset("/backend/lib/jquery.sparkline.bower/jquery.sparkline.min.js")}}"></script>
-<script src="{{asset("/backend/lib/d3/d3.js")}}"></script>
-<script src="{{asset("/backend/lib/rickshaw/rickshaw.min.js")}}"></script>
-<script src="{{asset("/backend/lib/chart.js/Chart.js")}}"></script>
-<script src="{{asset("/backend/lib/Flot/jquery.flot.js")}}"></script>
-<script src="{{asset("/backend/lib/Flot/jquery.flot.pie.js")}}"></script>
-<script src="{{asset("/backend/lib/Flot/jquery.flot.resize.js")}}"></script>
-<script src="{{asset("/backend/lib/flot-spline/jquery.flot.spline.js")}}"></script>
 
-<script src="{{asset("/backend/js/starlight.js")}}"></script>
-<script src="{{asset("/backend/js/ResizeSensor.js")}}"></script>
-<script src="{{asset("/backend/js/dashboard.js")}}"></script>
+<!-- jQuery -->
+<script src="{{asset('/backend/lib/jquery/jquery.js')}}"></script>
+
+<!-- Popper.js -->
+<script src="{{asset('/backend/lib/popper.js/popper.js')}}"></script>
+
+<!-- Bootstrap -->
+<script src="{{asset('/backend/lib/bootstrap/bootstrap.js')}}"></script>
+
+<!-- Select2 -->
+<script src="{{asset('/backend/lib/select2/js/select2.min.js')}}"></script>
+
+<!-- jQuery UI -->
+<script src="{{asset('/backend/lib/jquery-ui/jquery-ui.js')}}"></script>
+
+<!-- Perfect Scrollbar -->
+<script src="{{asset('/backend/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js')}}"></script>
+
+<!-- Sparkline -->
+<script src="{{asset('/backend/lib/jquery.sparkline.bower/jquery.sparkline.min.js')}}"></script>
+
+<!-- d3 and Rickshaw -->
+<script src="{{asset('/backend/lib/d3/d3.js')}}"></script>
+<script src="{{asset('/backend/lib/rickshaw/rickshaw.min.js')}}"></script>
+
+<!-- Chart.js -->
+<script src="{{asset('/backend/lib/chart.js/Chart.js')}}"></script>
+
+<!-- Flot Charts -->
+<script src="{{asset('/backend/lib/Flot/jquery.flot.js')}}"></script>
+<script src="{{asset('/backend/lib/Flot/jquery.flot.pie.js')}}"></script>
+<script src="{{asset('/backend/lib/Flot/jquery.flot.resize.js')}}"></script>
+<script src="{{asset('/backend/lib/flot-spline/jquery.flot.spline.js')}}"></script>
+
+<!-- Starlight Core JS -->
+<script src="{{asset('/backend/js/starlight.js')}}"></script>
+<script src="{{asset('/backend/js/ResizeSensor.js')}}"></script>
+<script src="{{asset('/backend/js/dashboard.js')}}"></script>
+
+<!-- SweetAlert (خليه لو فعلاً محتاجه) -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@yield('js')
+
 </body>
 </html>

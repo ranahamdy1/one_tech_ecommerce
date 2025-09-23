@@ -30,6 +30,8 @@ Route::controller(BackendController::class)->group(function () {
     Route::middleware(['auth', 'verified','role:admin'])->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
         Route::get('/adminLogOut', 'adminLogOut')->name('adminLogOut');
+        Route::get('/addCategory', 'addCategory')->name('addCategory');
+        Route::post('/addCategoryStore', 'addCategoryStore')->name('addCategoryStore');
     });
 });
 
