@@ -15,6 +15,9 @@ Route::controller(FrontendController::class)->group(function () {
     Route::any('/userResetPassword', 'userResetPassword')->name('userResetPassword');
     Route::get('/userUpdatePassword/{id}', 'userUpdatePassword')->name('userUpdatePassword');
     Route::any('/userUpdatedPassword', 'userUpdatedPassword');
+
+    Route::get('/error_403', 'error403')->name('error_403');
+    Route::get('/error_404', 'error404')->name('error_404');
 });
 
 Route::controller(FrontendController::class)->group(function () {
