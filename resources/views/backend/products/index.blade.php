@@ -39,7 +39,7 @@
                                     <img src="{{$val->image}}" alt="" style="width: 50px">
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-block mg-b-10">Edit</a>
+                                    <a href="{{route('editProduct',['id'=>$val->id])}}" class="btn btn-primary btn-block mg-b-10">Edit</a>
                                     <a href="" class="btn btn-danger btn-block mg-b-10 delCat" prodID = {{$val->id}}>Delete</a>
 
                                 </td>

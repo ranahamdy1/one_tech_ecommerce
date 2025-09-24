@@ -125,4 +125,49 @@ class BackendController extends Controller
         $product = Product::latest()->paginate(10);
         return view('backend.products.index',compact('product'));
     }
+
+    public function editProduct($id)
+    {
+        $data = Product::findOrFail($id);
+        $category = Category::all();
+        return view('backend.products.edit',compact('data','category'));
+    }
+
+    public function updateProduct(Request $request)
+    {
+        $product = Product::where('id', '=', $request->id)->first();
+        if (!$product) {
+            return response()->json(['data' => 0, 'message' => 'Product not found']);
+        }
+        $source = $product->image; // افتراضياً خلي الصورة القديمة موجودة
+
+        if ($request->hasFile('image')) {
+            // امسح الصورة القديمة لو موجودة
+            if ($product->image && file_exists(public_path($product->image))) {
+                unlink(public_path($product->image));
+            }
+
+            // صور جديدة
+            $image = $request->file('image');
+            $gen = hexdec(uniqid());
+            $ext = strtolower($image->getClientOriginalExtension());
+            $fileName = $gen . '.' . $ext;
+            $location = 'products/';
+            $source = $location . $fileName;
+
+            $image->move(public_path($location), $fileName);
+        }
+
+        $product->name = strip_tags($request->name);
+        $product->category = strip_tags($request->category);
+        $product->oldPrice = strip_tags($request->oldPrice);
+        $product->newPrice = strip_tags($request->newPrice);
+        $product->image = $source;
+
+        $saved = $product->save();
+
+        return response()->json(['data' => $saved ? 1 : 0]);
+    }
+
+
 }

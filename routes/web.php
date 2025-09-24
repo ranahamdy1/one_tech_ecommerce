@@ -53,6 +53,10 @@ Route::controller(BackendController::class)->group(function () {
 
         //show
         Route::get('/product', 'product')->name('product');
+
+        //edit
+        Route::get('/editProduct/{id}', 'editProduct')->name('editProduct');
+        Route::any('/updateProduct', 'updateProduct');
     });
 });
 
