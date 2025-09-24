@@ -39,6 +39,8 @@ Route::controller(BackendController::class)->group(function () {
 
         Route::get('/editCategory/{id}', 'editCategory')->name('editCategory');
         Route::any('/updateCategory', 'updateCategory');
+
+        Route::any('/deleteCategory', 'deleteCategory');
     });
 });
 

@@ -69,4 +69,10 @@ class BackendController extends Controller
         ]);
         return response()->json(['data'=>$data]);
     }
+
+    public function deleteCategory(Request $request)
+    {
+        $data = Category::where('id' ,'=',$request->id)->delete();
+        return response()->json(['data'=>$data]);
+    }
 }

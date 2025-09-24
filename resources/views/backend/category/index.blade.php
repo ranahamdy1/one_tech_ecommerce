@@ -36,7 +36,7 @@
                                 <td>{{$val->order}}</td>
                                 <td>
                                     <a href="{{route('editCategory',['id'=>$val->id])}}" class="btn btn-primary btn-block mg-b-10">Edit</a>
-                                    <a href="" class="btn btn-danger btn-block mg-b-10">Delete</a>
+                                    <a href="" class="btn btn-danger btn-block mg-b-10 delCat" catID = {{$val->id}}>Delete</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -49,3 +49,44 @@
 
 
 @endsection
+
+
+            @section('js')
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                <script>
+                    $(document).ready(function () {
+                        $('.delCat').click(function (e) {
+                            e.preventDefault();
+                            let id = $(this).attr('catID');
+                            console.log(id);
+
+                            Swal.fire({
+                                title: 'warning!',
+                                text: 'Do you want to delete this caregory?',
+                                icon: 'warning',
+                                confirmButtonText: 'yes'
+                            }).then((result) => {
+                                if (result.isConfirmed){
+                                    $.ajax({
+                                        method: 'POST',
+                                        url: '/deleteCategory',
+                                        data: {
+                                            id:id
+                                        },
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        },
+                                        success: function (response){
+                                            if(response.data === 1){
+                                                window.location.reload();
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    });
+                </script>
+@endsection
+
