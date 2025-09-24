@@ -32,6 +32,7 @@ Route::controller(BackendController::class)->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
         Route::get('/adminLogOut', 'adminLogOut')->name('adminLogOut');
 
+        //categories
         Route::get('/addCategory', 'addCategory')->name('addCategory');
         Route::post('/addCategoryStore', 'addCategoryStore');
 
@@ -41,6 +42,10 @@ Route::controller(BackendController::class)->group(function () {
         Route::any('/updateCategory', 'updateCategory');
 
         Route::any('/deleteCategory', 'deleteCategory');
+
+        //products
+        Route::get('/addProducts', 'addProducts')->name('addProducts');
+        Route::any('/addProductsStore', 'addProductsStore');
     });
 });
 
