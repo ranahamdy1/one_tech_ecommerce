@@ -88,7 +88,6 @@ class BackendController extends Controller
     {
         if ($request->isMethod('post'))
         {
-            // ✅ validation
             $request->validate([
                 'category' => 'required|string|max:255',
                 'productName' => 'required|string|max:255',
@@ -97,7 +96,7 @@ class BackendController extends Controller
                 'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048'
             ]);
 
-            // ✅ التعامل مع الصورة
+            // images
             $image = $request->file('image');
             $gen = hexdec(uniqid());
             $ext = strtolower($image->getClientOriginalExtension());
@@ -107,17 +106,23 @@ class BackendController extends Controller
 
             $image->move(public_path($location), $fileName);
 
-            // ✅ إدخال البيانات
+            // insert data
             $data = Product::insert([
                 'category' => $request->category,
                 'name' => strip_tags($request->productName),
                 'oldPrice' => strip_tags($request->oldPrice),
                 'newPrice' => strip_tags($request->newPrice),
-                'image' => $source, // هنا
+                'image' => $source,
                 'created_at' => Carbon::now(),
             ]);
 
             return response()->json(['data' => $data]);
         }
+    }
+
+    public function product()
+    {
+        $product = Product::latest()->paginate(10);
+        return view('backend.products.index',compact('product'));
     }
 }

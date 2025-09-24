@@ -35,7 +35,7 @@
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="{{route('addProducts')}}" class="nav-link">Add</a></li>
-            <li class="nav-item"><a href="form-layouts.html" class="nav-link">View</a></li>
+            <li class="nav-item"><a href="{{route('product')}}" class="nav-link">View</a></li>
         </ul>
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">

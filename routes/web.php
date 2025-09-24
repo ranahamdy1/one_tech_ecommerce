@@ -33,19 +33,26 @@ Route::controller(BackendController::class)->group(function () {
         Route::get('/adminLogOut', 'adminLogOut')->name('adminLogOut');
 
         //categories
+        //add
         Route::get('/addCategory', 'addCategory')->name('addCategory');
         Route::post('/addCategoryStore', 'addCategoryStore');
 
+        //show
         Route::get('/category', 'category')->name('category');
 
+        //edit
         Route::get('/editCategory/{id}', 'editCategory')->name('editCategory');
         Route::any('/updateCategory', 'updateCategory');
 
         Route::any('/deleteCategory', 'deleteCategory');
 
         //products
+        //add
         Route::get('/addProducts', 'addProducts')->name('addProducts');
         Route::any('/addProductsStore', 'addProductsStore');
+
+        //show
+        Route::get('/product', 'product')->name('product');
     });
 });
 
