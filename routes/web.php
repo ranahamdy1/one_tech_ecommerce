@@ -57,6 +57,10 @@ Route::controller(BackendController::class)->group(function () {
         //edit
         Route::get('/editProduct/{id}', 'editProduct')->name('editProduct');
         Route::any('/updateProduct', 'updateProduct');
+
+        //delete
+        Route::any('/deleteProduct', 'deleteProduct');
+
     });
 });
 

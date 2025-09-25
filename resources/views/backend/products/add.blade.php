@@ -58,6 +58,13 @@
                             <input type="file" class="form-control" id = "image" accept="image/*">
                         </div>
                     </div><!-- row -->
+                    <br>
+                    <div class="row">
+                        <label class="col-sm-4 form-control-label">Product description: <span class="tx-danger">*</span></label>
+                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                            <input type="text" class="form-control" id = "des" placeholder="Enter Product description">
+                        </div>
+                    </div><!-- row -->
 
                     <div class="form-layout-footer mg-t-30">
                         <button class="btn btn-info mg-r-5 addPro">Add Product</button>
@@ -83,13 +90,15 @@
                 let oldPrice = $('#oldPrice').val();
                 let newPrice = $('#newPrice').val();
                 let image = $('#image').prop('files')[0];
+                let des = $('#des').val();
                 let formData = new FormData();
                 formData.append('category', category);
                 formData.append('productName', productName);
                 formData.append('oldPrice', oldPrice);
                 formData.append('newPrice', newPrice);
                 formData.append('image', image);
-                if (category === '' || productName === '' || oldPrice === '' || newPrice === '' || !image ) {
+                formData.append('des', des);
+                if (category === '' || productName === '' || oldPrice === '' || newPrice === '' || !image ||des ==='') {
                     Swal.fire({
                         title: 'Error!',
                         text: 'Please enter your ... again ',

@@ -57,6 +57,14 @@
                             </div>
                         </div><!-- row -->
 
+                        <br>
+                        <div class="row">
+                            <label class="col-sm-4 form-control-label">Product description: <span class="tx-danger">*</span></label>
+                            <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                <input type="text" class="form-control" id = "des" placeholder="Enter Product description" value="{{$data->des}}">
+                            </div>
+                        </div><!-- row -->
+
                         <input type="hidden" id="id" value="{{$data->id}}">
                         <div class="form-layout-footer mg-t-30">
                             <button class="btn btn-info mg-r-5 editBtn">save</button>
@@ -85,6 +93,7 @@
                 let newPrice = $('#newPrice').val();
                 let id = $('#id').val();
                 let image = $('#image').prop('files')[0];
+                let des = $('#des').val();
 
                 let formData = new FormData();
                 formData.append('name', name);
@@ -92,12 +101,13 @@
                 formData.append('oldPrice', oldPrice);
                 formData.append('newPrice', newPrice);
                 formData.append('id', id);
+                formData.append('des', des);
 
                 if (image) {
                     formData.append('image', image);
                 }
 
-                if (name === '' || category === '' || oldPrice === '' || newPrice === '') {
+                if (name === '' || category === '' || oldPrice === '' || newPrice === '' || des ==='') {
                     Swal.fire({
                         title: 'Error!',
                         text: 'Please fill all required fields',

@@ -93,7 +93,8 @@ class BackendController extends Controller
                 'productName' => 'required|string|max:255',
                 'oldPrice' => 'required|numeric',
                 'newPrice' => 'required|numeric',
-                'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048'
+                'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
+                'des' => 'nullable|string',
             ]);
 
             // images
@@ -113,12 +114,14 @@ class BackendController extends Controller
                 'oldPrice' => strip_tags($request->oldPrice),
                 'newPrice' => strip_tags($request->newPrice),
                 'image' => $source,
+                'des' => strip_tags($request->des),
                 'created_at' => Carbon::now(),
             ]);
 
             return response()->json(['data' => $data]);
         }
     }
+
 
     public function product()
     {
@@ -169,5 +172,9 @@ class BackendController extends Controller
         return response()->json(['data' => $saved ? 1 : 0]);
     }
 
-
+    public function deleteProduct(Request $request)
+    {
+        $data = Product::where('id' ,'=',$request->id)->delete();
+        return response()->json(['data'=>$data]);
+    }
 }
