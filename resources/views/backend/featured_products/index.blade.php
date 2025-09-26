@@ -40,7 +40,7 @@
                                 </td>
                                 <td>
                                     <a href="{{route('editFeaturedProduct',['id'=>$val->id])}}" class="btn btn-primary btn-block mg-b-10">Edit</a>
-                                    <a href="" class="btn btn-danger btn-block mg-b-10 delPro" prodID = {{$val->id}}>Delete</a>
+                                    <a href="" class="btn btn-danger btn-block mg-b-10 delFeaturedPro" featuredProdID = {{$val->id}}>Delete</a>
 
                                 </td>
                             </tr>
@@ -62,9 +62,9 @@
 
     <script>
         $(document).ready(function () {
-            $('.delPro').click(function (e) {
+            $('.delFeaturedPro').click(function (e) {
                 e.preventDefault();
-                let id = $(this).attr('prodID');
+                let id = $(this).attr('featuredProdID');
                 console.log(id);
 
                 Swal.fire({
@@ -76,7 +76,7 @@
                     if (result.isConfirmed){
                         $.ajax({
                             method: 'POST',
-                            url: '/deleteProduct',
+                            url: '/deleteFeaturedProduct',
                             data: {
                                 id:id
                             },

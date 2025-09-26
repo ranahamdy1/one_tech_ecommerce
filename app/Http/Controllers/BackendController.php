@@ -264,4 +264,10 @@ class BackendController extends Controller
         return response()->json(['data' => $saved ? 1 : 0]);
     }
 
+    public function deleteFeaturedProduct(Request $request)
+    {
+        $data = Product::where('id' ,'=',$request->id)->delete();
+        return response()->json(['data'=>$data]);
+    }
+
 }

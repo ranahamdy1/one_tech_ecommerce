@@ -78,7 +78,7 @@ Route::controller(BackendController::class)->group(function () {
         Route::any('/updateFeaturedProduct', 'updateFeaturedProduct');
 
         //delete
-//        Route::any('/deleteFeaturedProduct', 'deleteFeaturedProduct');
+        Route::any('/deleteFeaturedProduct', 'deleteFeaturedProduct');
 
     });
 });
