@@ -65,6 +65,11 @@ Route::controller(BackendController::class)->group(function () {
         //delete
         Route::any('/deleteProduct', 'deleteProduct');
 
+        //FeaturedProduct
+        //add
+        Route::get('/addFeaturedProduct', 'addFeaturedProduct')->name('addFeaturedProduct');
+        Route::post('/addFeaturedProductStore', 'addFeaturedProductStore');
+
     });
 });
 

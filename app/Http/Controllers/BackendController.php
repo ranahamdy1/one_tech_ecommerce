@@ -177,4 +177,42 @@ class BackendController extends Controller
         $data = Product::where('id' ,'=',$request->id)->delete();
         return response()->json(['data'=>$data]);
     }
+
+    //FeaturedProduct
+    public function addFeaturedProduct()
+    {
+        $category = Category::all();
+        return view('backend.featured_products.add',compact('category'));
+    }
+
+    public function addFeaturedProductStore(Request $request)
+    {
+        if ($request->isMethod('post'))
+        {
+            // images
+            $image = $request->file('image');
+            $gen = hexdec(uniqid());
+            $ext = strtolower($image->getClientOriginalExtension());
+            $fileName = $gen . '.' . $ext;
+            $location = 'products/';
+            $source = $location . $fileName;
+
+            $image->move(public_path($location), $fileName);
+
+            // insert data
+            $data = Product::insert([
+                'category' => $request->category,
+                'name' => strip_tags($request->productName),
+                'oldPrice' => strip_tags($request->oldPrice),
+                'newPrice' => strip_tags($request->newPrice),
+                'image' => $source,
+                'des' => strip_tags($request->des),
+                'isFeatured' => 1,
+                'created_at' => Carbon::now(),
+            ]);
+
+            return response()->json(['data' => $data]);
+        }
+    }
+
 }
