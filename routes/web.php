@@ -73,6 +73,13 @@ Route::controller(BackendController::class)->group(function () {
         //show
         Route::get('/viewFeaturedProduct', 'viewFeaturedProduct')->name('viewFeaturedProduct');
 
+        //edit
+        Route::get('/editFeaturedProduct/{id}', 'editFeaturedProduct')->name('editFeaturedProduct');
+        Route::any('/updateFeaturedProduct', 'updateFeaturedProduct');
+
+        //delete
+//        Route::any('/deleteFeaturedProduct', 'deleteFeaturedProduct');
+
     });
 });
 
