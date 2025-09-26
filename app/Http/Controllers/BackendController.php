@@ -65,12 +65,26 @@ class BackendController extends Controller
 
     public function updateCategory(Request $request)
     {
-        $data = Category::where('id','=',$request->id)->update([
-            'name'=>strip_tags($request->name),
-            'order'=>strip_tags($request->order)
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $gen = hexdec(uniqid());
+            $ext = strtolower($image->getClientOriginalExtension());
+            $fileName = $gen . '.' . $ext;
+            $location = 'products/';
+            $source = $location . $fileName;
+            $image->move(public_path($location), $fileName);
+        }
+
+        $data = Category::where('id', $request->id)->update([
+            'name'  => strip_tags($request->name),
+            'order' => strip_tags($request->order),
+            // لو عايز تخزن الصورة الجديدة في الداتا بيز
+            'image' => isset($source) ? $source : Category::find($request->id)->image
         ]);
-        return response()->json(['data'=>$data]);
+
+        return response()->json(['data' => $data]);
     }
+
 
     public function deleteCategory(Request $request)
     {

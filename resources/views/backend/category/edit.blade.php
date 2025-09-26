@@ -30,6 +30,13 @@
                             </div>
                         </div>
 
+                        <div class="row mg-t-20">
+                            <label class="col-sm-4 form-control-label">Category image: <span class="tx-danger">*</span></label>
+                            <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                <input type="file" id="image" class="form-control">
+                            </div>
+                        </div>
+
                         <input type="hidden" id="id" value="{{$data->id}}">
                         <div class="form-layout-footer mg-t-30">
                             <button class="btn btn-info mg-r-5" id="newCat">save</button>
@@ -66,6 +73,14 @@
                 let name = $('#name').val();
                 let order = $('#order').val();
                 let id = $('#id').val();
+                let image = $('#image').prop('files')[0];
+
+                let formData = new FormData();
+                formData.append('name', name);
+                formData.append('order', order);
+                formData.append('id', id);
+                formData.append('image', image);
+
                 if (name === '') {
                     Swal.fire({
                         title: 'Error!',
@@ -77,11 +92,9 @@
                     $.ajax({
                         method: 'POST',
                         url: '/updateCategory',
-                        data: {
-                            name: name,
-                            order: order,
-                            id:id
-                        },
+                        contentType: false,
+                        processData: false,
+                        data: formData,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },

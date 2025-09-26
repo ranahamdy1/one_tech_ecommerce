@@ -24,6 +24,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Name</th>
+                            <th>Image</th>
                             <th>Order</th>
                             <th>Action</th>
                         </tr>
@@ -33,6 +34,9 @@
                             <tr>
                                 <td>{{$val->id}}</td>
                                 <td>{{$val->name}}</td>
+                                <td>
+                                    <img src="{{$val->image}}" alt="" style="width: 50px">
+                                </td>
                                 <td>{{$val->order}}</td>
                                 <td>
                                     <a href="{{route('editCategory',['id'=>$val->id])}}" class="btn btn-primary btn-block mg-b-10">Edit</a>

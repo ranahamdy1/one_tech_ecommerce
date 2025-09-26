@@ -20,7 +20,10 @@ class FrontendController extends Controller
     public function home()
     {
         $featuredProduct = Product::where('isFeatured' ,'=',1)->latest()->paginate(8);
-        return view('frontend.index', compact('featuredProduct'));
+        $first = Product::first();
+        $deals_weak = Product::latest()->paginate(3);
+        $categories = Category::all();
+        return view('frontend.index', compact('featuredProduct', 'first', 'deals_weak','categories'));
     }
 
     public function userLogin(Request $request)
