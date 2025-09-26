@@ -18,6 +18,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('/plugins/jquery-ui-1.12.1.custom/jquery-ui.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('/styles/shop_styles.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('/styles/shop_responsive.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{asset('/styles/product_styles.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('/styles/product_responsive.css')}}">
 </head>
 
 <body>
@@ -76,6 +79,8 @@
 <script src="{{asset('/plugins/jquery-ui-1.12.1.custom/jquery-ui.js')}}"></script>
 <script src="{{asset('/plugins/parallax-js-master/parallax.min.js')}}"></script>
 <script src="{{asset('/js/shop_custom.js')}}"></script>
+
+<script src="{{asset('/js/product_custom.js')}}"></script>
 
 <script src="{{asset("js/custom.js")}}"></script>
 </body>

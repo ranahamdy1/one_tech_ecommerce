@@ -166,4 +166,11 @@ class FrontendController extends Controller
         return view('frontend.product_by_category', compact('data','category','selectCat'));
     }
 
+    public function productDetailsView($id)
+    {
+        $data = Product::findOrFail($id);
+        $category = Category::where('id', '=', $data->category)->first();
+
+        return view('frontend.products.view', compact('data','category'));
+    }
 }

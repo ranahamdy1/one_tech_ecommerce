@@ -20,6 +20,7 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/error_404', 'error404')->name('error_404');
 
     Route::get('/productByCategory/{id}', 'productByCategory')->name('productByCategory');
+    Route::get('/productDetailsView/{id}', 'productDetailsView')->name('productDetailsView');
 
 });
 
