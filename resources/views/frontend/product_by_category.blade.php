@@ -1,6 +1,11 @@
 @extends('frontend.master')
 @section('title','productByCategory')
 
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{asset('/styles/shop_styles.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('/styles/shop_responsive.css')}}">
+@endsection
+
 @section('content')
 
     <div class="home">

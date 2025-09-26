@@ -1,6 +1,13 @@
 @extends('frontend.master')
 @section('title',$data->name)
 
+@section('css')
+
+    <link rel="stylesheet" type="text/css" href="{{asset('/styles/product_styles.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('/styles/product_responsive.css')}}">
+
+@endsection
+
 @section('content')
     <div class="single_product">
         <div class="container">
