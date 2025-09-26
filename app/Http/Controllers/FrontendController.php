@@ -19,7 +19,8 @@ class FrontendController extends Controller
 {
     public function home()
     {
-        return view('frontend.index');
+        $featuredProduct = Product::where('isFeatured' ,'=',1)->latest()->paginate(8);
+        return view('frontend.index', compact('featuredProduct'));
     }
 
     public function userLogin(Request $request)
