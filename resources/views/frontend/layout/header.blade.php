@@ -73,7 +73,7 @@
                                             <ul class="custom_list clc">
                                                 <li><a class="clc" href="#">All Categories</a></li>
                                                 @foreach($categores as $val)
-                                                    <li><a class="clc" href="#">{{$val->name}}</a></li>
+                                                    <li><a class="clc" href="">{{$val->name}}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -134,7 +134,7 @@
 
                             <ul class="cat_menu">
                                 @foreach($categores as $val)
-                                    <li><a href="#">{{$val->name}}<i class="fas fa-chevron-right ml-auto"></i></a></li>
+                                    <li><a href="{{route('productByCategory',['id'=>$val->id])}}">{{$val->name}}<i class="fas fa-chevron-right ml-auto"></i></a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -143,7 +143,7 @@
 
                         <div class="main_nav_menu ml-auto">
                             <ul class="standard_dropdown main_nav_dropdown">
-                                <li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
+                                <li><a href="{{route('home')}}">Home<i class="fas fa-chevron-down"></i></a></li>
                                 <li class="hassubs">
                                     <a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
                                     <ul>

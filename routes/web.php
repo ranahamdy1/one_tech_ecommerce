@@ -18,6 +18,9 @@ Route::controller(FrontendController::class)->group(function () {
 
     Route::get('/error_403', 'error403')->name('error_403');
     Route::get('/error_404', 'error404')->name('error_404');
+
+    Route::get('/productByCategory/{id}', 'productByCategory')->name('productByCategory');
+
 });
 
 Route::controller(FrontendController::class)->group(function () {

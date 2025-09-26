@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ForgetPassword;
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
 use http\Env\Response;
@@ -154,6 +156,14 @@ class FrontendController extends Controller
         {
             return redirect()->route('home');
         }
+    }
+
+    public function productByCategory($id)
+    {
+        $data = Product::where('category', '=', request()->id)->latest()->paginate(10);
+        $category = Category::all();
+        $selectCat = Category::findOrFail($id);
+        return view('frontend.product_by_category', compact('data','category','selectCat'));
     }
 
 }
