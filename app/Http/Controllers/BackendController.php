@@ -215,4 +215,10 @@ class BackendController extends Controller
         }
     }
 
+    public function viewFeaturedProduct()
+    {
+        $data = Product::where('isFeatured','=',1)->latest()->paginate(10);
+        return view('backend.featured_products.index',compact('data'));
+    }
+
 }

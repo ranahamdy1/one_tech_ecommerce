@@ -1,5 +1,5 @@
 @extends('backend.master')
-@section('title','add product')
+@section('title','view product')
 
 @section('content')
     <div class="sl-mainpanel">

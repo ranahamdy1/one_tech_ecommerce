@@ -70,6 +70,9 @@ Route::controller(BackendController::class)->group(function () {
         Route::get('/addFeaturedProduct', 'addFeaturedProduct')->name('addFeaturedProduct');
         Route::post('/addFeaturedProductStore', 'addFeaturedProductStore');
 
+        //show
+        Route::get('/viewFeaturedProduct', 'viewFeaturedProduct')->name('viewFeaturedProduct');
+
     });
 });
 
