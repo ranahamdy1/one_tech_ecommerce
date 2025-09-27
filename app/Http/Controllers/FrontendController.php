@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ForgetPassword;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductViewed;
 use App\Models\User;
 use Carbon\Carbon;
 use http\Env\Response;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
+use DB;
 
 class FrontendController extends Controller
 {
@@ -23,7 +25,15 @@ class FrontendController extends Controller
         $first = Product::first();
         $deals_weak = Product::latest()->paginate(3);
         $categories = Category::all();
-        return view('frontend.index', compact('featuredProduct', 'first', 'deals_weak','categories'));
+        $hotSale = Product::where('oldPrice','!=',null)->latest()->paginate(8);
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+        $view = DB::table('product_vieweds')->where('ip','=',$ip)
+            ->join('products','product_vieweds.product_id','=','products.id')
+            ->select('products.*')
+            ->latest()->paginate(6);
+
+        return view('frontend.index', compact('featuredProduct', 'first', 'deals_weak','categories','hotSale','view'));
     }
 
     public function userLogin(Request $request)
@@ -174,7 +184,22 @@ class FrontendController extends Controller
     {
         $data = Product::findOrFail($id);
         $category = Category::where('id', '=', $data->category)->first();
+        $ip = $_SERVER['REMOTE_ADDR']; //build in function to get ip
 
+        $check = ProductViewed::where([
+            ['ip', '=', $ip],
+            ['product_id', '=', $id]
+        ])->first();
+
+        if(empty($check)){
+
+            ProductViewed::insert([
+                'ip' => $ip,
+                'product_id' => $id,
+                'created_at' => Carbon::now(),
+            ]);
+
+        }
         return view('frontend.products.view', compact('data','category'));
     }
 }

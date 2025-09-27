@@ -1,5 +1,19 @@
 @extends('frontend.master')
 
+@section('css')
+<style>
+    .proView {
+        width: 20%;
+        text-align: center;
+    }
+
+    .proView img{
+        margin: auto;
+        width: 100%;
+    }
+</style>
+@endsection
+
 @section('content')
 
     <!-- Banner -->
@@ -160,8 +174,8 @@
                             <div class="tabs">
                                 <ul class="clearfix">
                                     <li class="active">Featured</li>
-                                    <li>On Sale</li>
-                                    <li>Best Rated</li>
+                                    <li>Hot Sale</li>
+
                                 </ul>
                                 <div class="tabs_line"><span></span></div>
                             </div>
@@ -205,66 +219,31 @@
                             <div class="product_panel panel">
                                 <div class="featured_slider slider">
 
-                                    <!-- Slider Item -->
-                                    <div class="featured_slider_item">
-                                        <div class="border_active"></div>
-                                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                            <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/featured_1.png" alt=""></div>
-                                            <div class="product_content">
-                                                <div class="product_price discount">$225<span>$300</span></div>
-                                                <div class="product_name"><div><a href="product.html">Huawei MediaPad...</a></div></div>
-                                                <div class="product_extras">
-                                                    <div class="product_color">
-                                                        <input type="radio" checked name="product_color" style="background:#b19c83">
-                                                        <input type="radio" name="product_color" style="background:#000000">
-                                                        <input type="radio" name="product_color" style="background:#999999">
+                                    @foreach($hotSale as $val)
+                                        <div class="featured_slider_item">
+                                            <div class="border_active"></div>
+                                            <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                                <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{asset($val->image)}}" alt=""></div>
+                                                <div class="product_content">
+                                                    <div class="product_price discount">${{$val->newPrice}}<span>${{$val->oldPrice}}</span></div>
+                                                    <div class="product_name"><div><a href="{{route('productDetailsView',['id',$val->id])}}">{{$val->name}}</a></div></div>
+                                                    <div class="product_extras">
+                                                        <div class="product_color">
+                                                            <input type="radio" checked name="product_color" style="background:#b19c83">
+                                                            <input type="radio" name="product_color" style="background:#000000">
+                                                            <input type="radio" name="product_color" style="background:#999999">
+                                                        </div>
+                                                        <button class="product_cart_button">Add to Cart</button>
                                                     </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
                                                 </div>
+                                                <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                                <ul class="product_marks">
+                                                    <li class="product_mark product_discount">-25%</li>
+                                                    <li class="product_mark product_new">new</li>
+                                                </ul>
                                             </div>
-                                            <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                            <ul class="product_marks">
-                                                <li class="product_mark product_discount">-25%</li>
-                                                <li class="product_mark product_new">new</li>
-                                            </ul>
                                         </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="featured_slider_dots_cover"></div>
-                            </div>
-
-                            <!-- Product Panel -->
-
-                            <div class="product_panel panel">
-                                <div class="featured_slider slider">
-
-                                    <!-- Slider Item -->
-                                    <div class="featured_slider_item">
-                                        <div class="border_active"></div>
-                                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                            <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/featured_1.png" alt=""></div>
-                                            <div class="product_content">
-                                                <div class="product_price discount">$225<span>$300</span></div>
-                                                <div class="product_name"><div><a href="product.html">Huawei MediaPad...</a></div></div>
-                                                <div class="product_extras">
-                                                    <div class="product_color">
-                                                        <input type="radio" checked name="product_color" style="background:#b19c83">
-                                                        <input type="radio" name="product_color" style="background:#000000">
-                                                        <input type="radio" name="product_color" style="background:#999999">
-                                                    </div>
-                                                    <button class="product_cart_button">Add to Cart</button>
-                                                </div>
-                                            </div>
-                                            <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                            <ul class="product_marks">
-                                                <li class="product_mark product_discount">-25%</li>
-                                                <li class="product_mark product_new">new</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
+                                    @endforeach
 
                                 </div>
                                 <div class="featured_slider_dots_cover"></div>
@@ -490,8 +469,7 @@
         </div>
     </div>
 
-    <!-- Recently Viewed -->
-
+    @if(count($view) >0)
     <div class="viewed">
         <div class="container">
             <div class="row">
@@ -508,104 +486,31 @@
 
                         <!-- Recently Viewed Slider -->
 
-                        <div class="owl-carousel owl-theme viewed_slider">
-
-                            <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_1.jpg" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$225<span>$300</span></div>
-                                        <div class="viewed_name"><a href="#">Beoplay H7</a></div>
+                            @foreach($view as $val)
+                                <div class="proView">
+                                    <div>
+                                        <img src="{{asset($val->image)}}" alt="">
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">${{$val->newPrice}}<span>
+                                                    @if($val->oldPrice != null)
+                                                        ${{$val->oldPrice}}</span></div>
+                                                     @endif
+                                            <div class="viewed_name"><a href="{{route('productDetailsView',['id'=>$val->id])}}">{{$val->name}}</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
                                     </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
                                 </div>
-                            </div>
+                            @endforeach
 
-                            <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_2.jpg" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$379</div>
-                                        <div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
-                                    </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_3.jpg" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$225</div>
-                                        <div class="viewed_name"><a href="#">Samsung J730F...</a></div>
-                                    </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_4.jpg" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$379</div>
-                                        <div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
-                                    </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_5.jpg" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$225<span>$300</span></div>
-                                        <div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
-                                    </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Recently Viewed Item -->
-                            <div class="owl-item">
-                                <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                    <div class="viewed_image"><img src="images/view_6.jpg" alt=""></div>
-                                    <div class="viewed_content text-center">
-                                        <div class="viewed_price">$375</div>
-                                        <div class="viewed_name"><a href="#">Speedlink...</a></div>
-                                    </div>
-                                    <ul class="item_marks">
-                                        <li class="item_mark item_discount">-25%</li>
-                                        <li class="item_mark item_new">new</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    @endif
     <!-- Newsletter -->
 
     <div class="newsletter">
