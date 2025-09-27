@@ -202,4 +202,18 @@ class FrontendController extends Controller
         }
         return view('frontend.products.view', compact('data','category'));
     }
+
+    public function superDeals()
+    {
+        $category = Category::all();
+        $data = Product::where('oldPrice','!=','')->latest()->paginate(20);
+
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $view = DB::table('product_vieweds')->where('ip','=',$ip)
+            ->join('products','product_vieweds.product_id','=','products.id')
+            ->select('products.*')
+            ->latest()->paginate(6);
+
+        return view('frontend.super_deals',compact('category','data','view'));
+    }
 }

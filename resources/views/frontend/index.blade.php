@@ -1,4 +1,5 @@
 @extends('frontend.master')
+@section('title','home')
 
 @section('css')
 <style>

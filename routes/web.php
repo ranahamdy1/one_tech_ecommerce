@@ -22,6 +22,8 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/productByCategory/{id}', 'productByCategory')->name('productByCategory');
     Route::get('/productDetailsView/{id}', 'productDetailsView')->name('productDetailsView');
 
+    Route::get('/superDeals', 'superDeals')->name('superDeals');
+
 });
 
 Route::controller(FrontendController::class)->group(function () {

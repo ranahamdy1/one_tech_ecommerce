@@ -125,7 +125,7 @@
                         <div class="main_nav_menu ml-auto">
                             <ul class="standard_dropdown main_nav_dropdown">
                                 <li><a href="{{route('home')}}">Home<i class="fas fa-chevron-down"></i></a></li>
-                                <li><a href="">Super Deals<i class="fas fa-chevron-down"></i></a></li>
+                                <li><a href="{{route('superDeals')}}">Super Deals<i class="fas fa-chevron-down"></i></a></li>
                                 <li><a href="">Featured Brands<i class="fas fa-chevron-down"></i></a></li>
                                 <li><a href="blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
                                 <li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
