@@ -23,6 +23,10 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/productDetailsView/{id}', 'productDetailsView')->name('productDetailsView');
 
     Route::get('/superDeals', 'superDeals')->name('superDeals');
+    Route::get('/allProducts', 'allProducts')->name('allProducts');
+
+    Route::any('/searchProducts', 'searchProducts')->name('searchProducts');
+    Route::get('/searchResult/{product}', 'searchResult')->name('searchResult');
 
 });
 

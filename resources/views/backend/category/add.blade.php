@@ -101,7 +101,8 @@
                                         window.location.reload();
                                     }
                                 });
-                            }                        }
+                            }
+                        }
                     });
                 }
             });

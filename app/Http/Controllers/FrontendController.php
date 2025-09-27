@@ -216,4 +216,47 @@ class FrontendController extends Controller
 
         return view('frontend.super_deals',compact('category','data','view'));
     }
+    public function allProducts()
+    {
+        $category = Category::all();
+        $data = Product::latest()->paginate(20);
+
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $view = DB::table('product_vieweds')->where('ip','=',$ip)
+            ->join('products','product_vieweds.product_id','=','products.id')
+            ->select('products.*')
+            ->latest()->paginate(6);
+
+        return view('frontend.products',compact('category','data','view'));
+    }
+
+    public function searchProducts(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $product = $request->search;
+            $data = Product::where('name','LIKE','%'.$product.'%')->latest()->paginate(10);
+
+            if (count($data) > 0){
+                return response()->json(['data'=>1]);
+            }else{
+                return response()->json(['data'=>0]);
+            }
+
+        }else{
+            return redirect()->route('home');
+        }
+    }
+
+    public function searchResult($product)
+    {
+        $data = Product::where('name','LIKE','%'.$product.'%')->latest()->paginate(10);
+        $category = Category::all();
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $view = DB::table('product_vieweds')->where('ip','=',$ip)
+            ->join('products','product_vieweds.product_id','=','products.id')
+            ->select('products.*')
+            ->latest()->paginate(6);
+
+        return view('frontend.search_result',compact('category','data','view'));
+    }
 }

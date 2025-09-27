@@ -47,18 +47,8 @@
                             <div class="header_search_form_container">
                                 <form action="#" class="header_search_form clearfix">
                                     <input type="search" required="required" class="header_search_input" placeholder="Search for products...">
-                                    <div class="custom_dropdown">
-                                        <div class="custom_dropdown_list">
-                                            <span class="custom_dropdown_placeholder clc">All Categories</span>
-                                            <i class="fas fa-chevron-down"></i>
-                                            <ul class="custom_list clc">
-                                                <li><a class="clc" href="#">All Categories</a></li>
-                                                @foreach($categores as $val)
-                                                    <li><a class="clc" href="">{{$val->name}}</a></li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    </div>
+
+
                                     <button type="submit" class="header_search_button trans_300" value="Submit"><img src="images/search.png" alt=""></button>
                                 </form>
                             </div>
@@ -126,7 +116,7 @@
                             <ul class="standard_dropdown main_nav_dropdown">
                                 <li><a href="{{route('home')}}">Home<i class="fas fa-chevron-down"></i></a></li>
                                 <li><a href="{{route('superDeals')}}">Super Deals<i class="fas fa-chevron-down"></i></a></li>
-                                <li><a href="">Featured Brands<i class="fas fa-chevron-down"></i></a></li>
+                                <li><a href="{{route('allProducts')}}">Products<i class="fas fa-chevron-down"></i></a></li>
                                 <li><a href="blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
                                 <li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
                             </ul>
@@ -236,3 +226,48 @@
     </div>
 
 </header>
+
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.header_search_form').submit(function (e) {
+                e.preventDefault();
+                let myInput = $('.header_search_input').val();
+
+                if(myInput === ''){
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Add data',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }else{
+                    $.ajax({
+                        method: 'POST',
+                        url: '/searchProducts',
+                        data: {
+                            search: myInput,
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (response) {
+                            if(response.data === 0){
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'No results found for "'+myInput+'"',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            }else{
+                                window.location.href='/searchResult/'+myInput;
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+@endsection
