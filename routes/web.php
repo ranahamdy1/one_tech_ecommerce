@@ -31,6 +31,7 @@ Route::controller(FrontendController::class)->group(function () {
     Route::any('/addCart', 'addCart')->name('addCart');
     Route::get('/viewCart', 'viewCart')->name('viewCart');
     Route::post('/deleteProductFromCart/{id}', 'deleteProductFromCart')->name('deleteProductFromCart');
+    Route::post('/emptyCart', 'emptyCart')->name('emptyCart');
 
 });
 

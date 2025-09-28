@@ -106,6 +106,37 @@
                 });
             });
         });
+
+        $(document).ready(function () {
+            $('.cart_button_clear').click(function (e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Do you want to empty cart?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed){
+                        $.ajax({
+                            method: 'POST',
+                            url: '/emptyCart',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (response){
+                                console.log(response);
+                                if(response.data >0 ){
+                                    window.location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        });
     </script>
 @endsection
 

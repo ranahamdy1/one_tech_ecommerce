@@ -356,4 +356,17 @@ class FrontendController extends Controller
         $data = Cart::where('product_id','=',$id)->delete();
         return response()->json(['data'=>$data]);
     }
+
+    public function emptyCart()
+    {
+        if (Auth::check())
+        {
+            $data = Cart::where('user_id','=',Auth::user()->id)->delete();
+        }
+        else{
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $data = Cart::where('user_ip','=', $ip)->delete();
+        }
+        return response()->json(['data'=>$data]);
+    }
 }
