@@ -266,28 +266,48 @@ class FrontendController extends Controller
         if ($request->isMethod('post')) {
             $quantity = $request->quantity;
             $productId = $request->productId;
+
             if (Auth::check()) {
-                $cart = Cart::insert([
-                    'user_id'    => Auth::user()->id,
-                    'product_id' => $productId,
-                    'quantity'   => $quantity,
-                    'created_at' => Carbon::now(),
-                ]);
-            }else{
-                $ip = $_SERVER['REMOTE_ADDR'];
-                $cart = Cart::insert([
-                    'user_ip'    => $ip,
-                    'product_id' => $productId,
-                    'quantity'   => $quantity,
-                    'created_at' => Carbon::now(),
-                ]);
+                $userId = Auth::id();
+
+                // check if product already in cart
+                $cart = Cart::where('user_id', $userId)->where('product_id', $productId)->first();
+
+                if ($cart) {
+                    // update quantity
+                    $cart->quantity += $quantity;
+                    $cart->save();
+                } else {
+                    Cart::create([
+                        'user_id'    => $userId,
+                        'product_id' => $productId,
+                        'quantity'   => $quantity,
+                    ]);
+                }
+
+            } else {
+                $ip = request()->ip();
+
+                $cart = Cart::where('user_ip', $ip)->where('product_id', $productId)->first();
+
+                if ($cart) {
+                    $cart->quantity += $quantity;
+                    $cart->save();
+                } else {
+                    Cart::create([
+                        'user_ip'    => $ip,
+                        'product_id' => $productId,
+                        'quantity'   => $quantity,
+                    ]);
+                }
             }
 
-            return response()->json(['data'=> $cart]);
-        }else{
-            return redirect()->back();
+            return response()->json(['data' => true]);
         }
+
+        return redirect()->back();
     }
+
 
     public function viewCart()
     {
@@ -329,5 +349,11 @@ class FrontendController extends Controller
         }
 
         return view('frontend.cart', compact('data','all'));
+    }
+
+    public function deleteProductFromCart($id)
+    {
+        $data = Cart::where('product_id','=',$id)->delete();
+        return response()->json(['data'=>$data]);
     }
 }

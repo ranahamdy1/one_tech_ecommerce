@@ -39,6 +39,10 @@
                                             <div class="cart_item_title">Total</div>
                                             <div class="cart_item_text">${{$val->newPrice * $val->quantity}}</div>
                                         </div>
+                                        <div class="cart_item_total cart_info_col">
+                                            <div class="cart_item_title">Delete</div>
+                                            <div class="cart_item_text"><button class="btn btn-danger delCartProduct" productId = '{{$val->id}}' >Delete</button></div>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>
@@ -65,3 +69,43 @@
 
 
 @endsection
+
+
+
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.delCartProduct').click(function (e) {
+                e.preventDefault();
+                let productId = $(this).attr('productId');
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Do you want to delete this product from cart?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed){
+                        $.ajax({
+                            method: 'POST',
+                            url: '/deleteProductFromCart/' + productId,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (response){
+                                console.log(response);
+                                if(response.data === 1){
+                                    window.location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+@endsection
+

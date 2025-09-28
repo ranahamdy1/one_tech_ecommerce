@@ -63,7 +63,7 @@
 
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function () {
@@ -84,7 +84,7 @@
                         },
                         success: function (response){
                             console.log(response);
-                            if (response.data ===1){
+                            if (response.data ===true){
                                 Swal.fire({
                                     title: 'Success!',
                                     text: 'cart added successfully',
