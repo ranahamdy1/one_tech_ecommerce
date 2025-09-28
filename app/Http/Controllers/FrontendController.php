@@ -288,4 +288,46 @@ class FrontendController extends Controller
             return redirect()->back();
         }
     }
+
+    public function viewCart()
+    {
+        if (Auth::check()) {
+            $data = DB::table('carts')->where('user_id','=',Auth::user()->id)
+                ->join('products','products.id','=','carts.product_id') //relationship between carts and products
+                ->select('products.*')
+                ->latest()->paginate(10);
+
+            $price = DB::table('carts')->where('user_id','=',Auth::user()->id)
+                ->join('products','products.id','=','carts.product_id')
+                ->select('products.*')
+                ->sum('products.newPrice');
+
+            $quantity = DB::table('carts')->where('user_id','=',Auth::user()->id)
+                ->join('products','products.id','=','carts.product_id')
+                ->select('products.*')
+                ->sum('carts.quantity');
+
+            $all = $price * $quantity;
+        }else{
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $data = DB::table('carts')->where('user_ip','=',$ip)
+                ->join('products','products.id','=','carts.product_id')
+                ->select('products.*','carts.quantity')
+                ->latest()->paginate(10);
+
+            $price = DB::table('carts')->where('user_ip','=',$ip)
+                ->join('products','products.id','=','carts.product_id')
+                ->select('products.*','carts.quantity')
+                ->sum('products.newPrice');
+
+            $quantity = DB::table('carts')->where('user_ip','=',$ip)
+                ->join('products','products.id','=','carts.product_id')
+                ->select('products.*','carts.quantity')
+                ->sum('carts.quantity');
+
+            $all = $quantity * $price;
+        }
+
+        return view('frontend.cart', compact('data','all'));
+    }
 }

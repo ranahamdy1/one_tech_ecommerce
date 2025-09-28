@@ -67,16 +67,22 @@
                             </div>
                         </div>
 
+                        @if(Auth::check())
+                            @php($cart = DB::table('carts')->where('user_id','=',Auth::user()->id)->count('id'))
+                        @else
+                            @php($ip = $_SERVER['REMOTE_ADDR']),
+                            @php($cart = DB::table('carts')->where('user_ip','=',$ip)->count('id'))
+                        @endif
+
                         <!-- Cart -->
                         <div class="cart">
                             <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                                 <div class="cart_icon">
-                                    <img src="images/cart.png" alt="">
-                                    <div class="cart_count"><span>10</span></div>
+                                    <img src="{{asset('/images/cart.png')}}" alt="">
+                                    <div class="cart_count"><span>{{$cart}}</span></div>
                                 </div>
                                 <div class="cart_content">
-                                    <div class="cart_text"><a href="#">Cart</a></div>
-                                    <div class="cart_price">$85</div>
+                                    <div class="cart_text"><a href="{{route('viewCart')}}">Cart</a></div>
                                 </div>
                             </div>
                         </div>
