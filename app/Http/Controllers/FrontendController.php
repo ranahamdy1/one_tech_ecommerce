@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ForgetPassword;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Favorite;
 use App\Models\Product;
 use App\Models\ProductViewed;
 use App\Models\User;
@@ -369,4 +370,24 @@ class FrontendController extends Controller
         }
         return response()->json(['data'=>$data]);
     }
+
+    public function addWishList($id)
+    {
+            if (Auth::check()) {
+                $favorite = Favorite::insert([
+                    'user_id'    => Auth::user()->id,
+                    'product_id' => $id,
+                    'created_at' => Carbon::now(),
+                ]);
+            }else{
+                $ip = $_SERVER['REMOTE_ADDR'];
+                $favorite = Favorite::insert([
+                    'user_ip'    => $ip,
+                    'product_id' => $id,
+                    'created_at' => Carbon::now(),
+                ]);
+            }
+            return response()->json(['data'=> $favorite]);
+    }
+
 }

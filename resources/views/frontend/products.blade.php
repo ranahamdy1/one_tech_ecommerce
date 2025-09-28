@@ -76,7 +76,7 @@
                                         <div class="product_price">${{$val->newPrice}}</div>
                                         <div class="product_name"><div><a href="{{route('productDetailsView',['id'=>$val->id])}}" tabindex="0">{{$val->name}}</a></div></div>
                                     </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                    <div class="product_fav" productId = '{{$val->id}}'><i class="fas fa-heart"></i></div>
                                     <ul class="product_marks">
                                         <li class="product_mark product_discount">-25%</li>
                                         <li class="product_mark product_new">new</li>
@@ -169,3 +169,33 @@
 
 @endsection
 
+
+
+
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.product_fav').click(function (e) {
+                e.preventDefault();
+                let product = $(this).attr('productId');
+                $.ajax({
+                    method: 'GET',
+                    url: '/addWishList/'+ product +'',
+                    success: function (response){
+                        console.log(response);
+                        if (response.data ===true){
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'product added to favorite successfully',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                });
+            });
+        });
+    </script>
+@endsection

@@ -33,6 +33,7 @@ Route::controller(FrontendController::class)->group(function () {
     Route::post('/deleteProductFromCart/{id}', 'deleteProductFromCart')->name('deleteProductFromCart');
     Route::post('/emptyCart', 'emptyCart')->name('emptyCart');
 
+    Route::get('/addWishList/{id}', 'addWishList')->name('addWishList');
 });
 
 Route::controller(FrontendController::class)->group(function () {
