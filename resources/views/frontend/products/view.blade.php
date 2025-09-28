@@ -47,7 +47,7 @@
                                     @endif
                                 </div>
                                 <div class="button_container">
-                                    <button type="button" class="button cart_button">Add to Cart</button>
+                                    <button type="button" class="button cart_button" productId="{{$data->id}}">Add to Cart</button>
                                     <div class="product_fav"><i class="fas fa-heart"></i></div>
                                 </div>
 
@@ -59,4 +59,42 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('js')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.cart_button').click(function (e) {
+                e.preventDefault();
+                let product = $(this).attr('productId');
+                let quantiy = $('#quantity_input').val();
+
+                    $.ajax({
+                        method: 'POST',
+                        url: '/addCart',
+                        data: {
+                            productId: product,
+                            quantity: quantiy,
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (response){
+                            console.log(response);
+                            if (response.data ===1){
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: 'cart added successfully',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        },
+                    });
+            });
+        });
+    </script>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ForgetPassword;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductViewed;
@@ -258,5 +259,33 @@ class FrontendController extends Controller
             ->latest()->paginate(6);
 
         return view('frontend.search_result',compact('category','data','view'));
+    }
+
+    public function addCart(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $quantity = $request->quantity;
+            $productId = $request->productId;
+            if (Auth::check()) {
+                $cart = Cart::insert([
+                    'user_id'    => Auth::user()->id,
+                    'product_id' => $productId,
+                    'quantity'   => $quantity,
+                    'created_at' => Carbon::now(),
+                ]);
+            }else{
+                $ip = $_SERVER['REMOTE_ADDR'];
+                $cart = Cart::insert([
+                    'user_ip'    => $ip,
+                    'product_id' => $productId,
+                    'quantity'   => $quantity,
+                    'created_at' => Carbon::now(),
+                ]);
+            }
+
+            return response()->json(['data'=> $cart]);
+        }else{
+            return redirect()->back();
+        }
     }
 }

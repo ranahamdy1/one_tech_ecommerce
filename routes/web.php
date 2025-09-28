@@ -28,6 +28,8 @@ Route::controller(FrontendController::class)->group(function () {
     Route::any('/searchProducts', 'searchProducts')->name('searchProducts');
     Route::get('/searchResult/{product}', 'searchResult')->name('searchResult');
 
+    Route::any('/addCart', 'addCart')->name('addCart');
+
 });
 
 Route::controller(FrontendController::class)->group(function () {
