@@ -428,5 +428,34 @@ class FrontendController extends Controller
         return response()->json(['data' => $data]);
     }
 
+    public function wishListAddCart($id)
+    {
+        if (Auth::check())
+        {
+            $data = Cart::insert([
+                'user_id'=> Auth::user()->id,
+                'product_id' => $id,
+                'quantity' => 1,
+                'created_at' => Carbon::now(),
+            ]);
+
+            Favorite::where('product_id', $id)
+                ->where('user_id', Auth::user()->id)
+                ->delete();
+        }else{
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $data = Cart::insert([
+                'user_ip'=> $ip,
+                'product_id' => $id,
+                'quantity' => 1,
+                'created_at' => Carbon::now(),
+            ]);
+
+            Favorite::where('product_id', $id)
+                ->where('user_ip', $ip)
+                ->delete();
+        }
+        return response()->json(['data'=>$data]);
+    }
 
 }

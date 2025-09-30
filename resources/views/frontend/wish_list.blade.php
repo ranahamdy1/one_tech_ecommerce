@@ -34,7 +34,7 @@
                                         <div class="cart_item_price cart_info_col">
                                             <div class="cart_item_title">Add to cart</div>
                                             <div class="cart_item_text">
-                                            <button class="btn btn-dark">Add to cart</button>
+                                            <button class="btn btn-dark cartBtn" prodId="{{$val->id}}">Add to cart</button>
                                             </div>
                                         </div>
                                         <div class="cart_item_total cart_info_col">
@@ -86,6 +86,36 @@
                             },
                             success: function (response){
                                 if(response.data === 1){
+                                    window.location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('.cartBtn').click(function (e) {
+                e.preventDefault();
+                let id = $(this).attr('prodId');
+                console.log(id);
+
+                Swal.fire({
+                    title: 'confirm!',
+                    text: 'Do you want to continue?',
+                    icon: 'confirm',
+                    confirmButtonText: 'yes'
+                }).then((result) => {
+                    if (result.isConfirmed){
+                        $.ajax({
+                            method: 'POST',
+                            url: '/wishListAddCart/'+id+'',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (response){
+                                if(response.data === true){
                                     window.location.reload();
                                 }
                             }
