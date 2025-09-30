@@ -390,4 +390,26 @@ class FrontendController extends Controller
             return response()->json(['data'=> $favorite]);
     }
 
+    public function wishList()
+    {
+        if(Auth::check())
+        {
+            $data = DB::table('favourites')
+                ->where('user_id','=',Auth::user()->id)
+                ->join('products','products.id','favourites.product_id')
+                ->select('products.*')
+                ->latest()->paginate(10);
+        }
+        else
+        {
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $data = DB::table('favorites')
+                ->where('user_ip','=',$ip)
+                ->join('products','products.id','favorites.product_id')
+                ->select('products.*')
+                ->latest()->paginate(10);
+        }
+        return view('frontend.wish_list', compact('data'));
+    }
+
 }

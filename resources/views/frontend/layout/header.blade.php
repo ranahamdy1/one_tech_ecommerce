@@ -62,8 +62,15 @@
                         <div class="wishlist d-flex flex-row align-items-center justify-content-end">
                             <div class="wishlist_icon"><img src="images/heart.png" alt=""></div>
                             <div class="wishlist_content">
-                                <div class="wishlist_text"><a href="#">Wishlist</a></div>
-                                <div class="wishlist_count">115</div>
+
+                                @if(Auth::check())
+                                    @php($wishList = DB::table('favorites')->where('user_id','=',Auth::user()->id)->count('id'))
+                                @else
+                                    @php($ip = $_SERVER['REMOTE_ADDR']),
+                                    @php($wishList = DB::table('favorites')->where('user_ip','=',$ip)->count('id'))
+                                @endif
+                                <div class="wishlist_text"><a href="{{route('wishList')}}">Wishlist</a></div>
+                                <div class="wishlist_count">{{$wishList}}</div>
                             </div>
                         </div>
 
