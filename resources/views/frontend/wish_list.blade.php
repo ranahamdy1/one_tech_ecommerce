@@ -40,7 +40,7 @@
                                         <div class="cart_item_total cart_info_col">
                                             <div class="cart_item_title">Delete</div>
                                             <div class="cart_item_text">
-                                                <button class="btn btn-danger"> Delete</button>
+                                                <button class="btn btn-danger delePro" productId="{{$val->id}}"> Delete</button>
                                             </div>
                                         </div>
                                     </div>
@@ -58,6 +58,42 @@
 @endsection
 
 @section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{asset('/js/cart_custom.js')}}"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.delePro').click(function (e) {
+                e.preventDefault();
+                let id = $(this).attr('productId');
+                console.log(id);
+
+                Swal.fire({
+                    title: 'warning!',
+                    text: 'Do you want to delete this?',
+                    icon: 'warning',
+                    confirmButtonText: 'yes'
+                }).then((result) => {
+                    if (result.isConfirmed){
+                        $.ajax({
+                            method: 'POST',
+                            url: '/deleteProductFromFav/'+id+'',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (response){
+                                if(response.data === 1){
+                                    window.location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
+

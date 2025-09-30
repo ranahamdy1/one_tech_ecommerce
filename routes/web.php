@@ -35,6 +35,7 @@ Route::controller(FrontendController::class)->group(function () {
 
     Route::get('/addWishList/{id}', 'addWishList')->name('addWishList');
     Route::get('/wishList', 'wishList')->name('wishList');
+    Route::post('/deleteProductFromFav/{id}', 'deleteProductFromFav')->name('deleteProductFromFav');
 });
 
 Route::controller(FrontendController::class)->group(function () {

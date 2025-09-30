@@ -412,4 +412,21 @@ class FrontendController extends Controller
         return view('frontend.wish_list', compact('data'));
     }
 
+    public function deleteProductFromFav($id)
+    {
+        if (Auth::check()) {
+            $data = Favorite::where('product_id', $id)
+                ->where('user_id', Auth::user()->id)
+                ->delete();
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $data = Favorite::where('product_id', $id)
+                ->where('user_ip', $ip)
+                ->delete();
+        }
+
+        return response()->json(['data' => $data]);
+    }
+
+
 }
