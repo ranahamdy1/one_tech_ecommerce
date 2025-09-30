@@ -7,6 +7,7 @@ use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class BackendController extends Controller
@@ -282,6 +283,38 @@ class BackendController extends Controller
     {
         $data = Product::where('id' ,'=',$request->id)->delete();
         return response()->json(['data'=>$data]);
+    }
+
+    public function adminProfile()
+    {
+        return view('backend.profile');
+    }
+
+    public function adminUpdateProfile(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $name = strip_tags($request->name);
+            $email = strip_tags($request->email);
+
+            if ($request->password != '') {
+                $password = Hash::make($request->password);
+            } else {
+                $password = Auth::user()->password;
+            }
+
+            $user = Auth::user(); // ✅ المستخدم الحالي
+            $user->name = $name;
+            $user->email = $email;
+            $user->password = $password;
+            $user->save();
+
+            if ($user) {
+                return response()->json(['data' => 1]);
+            }
+            return response()->json(['data' => $request->all()]);
+        } else {
+            return redirect()->route('home');
+        }
     }
 
 }

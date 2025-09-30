@@ -50,6 +50,8 @@ Route::controller(BackendController::class)->group(function () {
 
         Route::get('/dashboard', 'dashboard')->name('dashboard');
         Route::get('/adminLogOut', 'adminLogOut')->name('adminLogOut');
+        Route::get('/adminProfile', 'adminProfile')->name('adminProfile');
+        Route::any('/adminUpdateProfile', 'adminUpdateProfile')->name('adminUpdateProfile');
 
         //categories
         //add

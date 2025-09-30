@@ -13,7 +13,16 @@
                         <div class="top_bar_user">
                             <div class="user_icon"><img src="images/user.svg" alt=""></div>
                             @if(Auth::check())
-                            <div><a href="{{route('userLogOut')}}">LogOut</a></div>
+
+                                @role('user')
+                                <div><a href="">My Account</a></div>
+                                <div><a href="{{route('userLogOut')}}">LogOut</a></div>
+                                @endrole
+
+                                @role('admin')
+                                <div><a href="{{route('dashboard')}}">Dashboard</a></div>
+                                <div><a href="{{route('adminLogOut')}}">LogOut</a></div>
+                                @endrole
                             @else
                                 <div><a href="{{route('register')}}">Register</a></div>
                                 <div><a href="{{route('login')}}">Sign in</a></div>
